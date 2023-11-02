@@ -16,3 +16,9 @@ class NoteModel(BaseModel):
 class NoteCreateModel(BaseModel):
     title: str
     content:str
+
+
+class UserModel(BaseModel):
+    username:str
+    email:str
+    password:str

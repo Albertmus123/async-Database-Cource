@@ -16,3 +16,14 @@ class Note(Base):
 
     def __repr__(self) -> str:
         return f"<Note title : {self.title} >"
+
+class User(Base):
+    __tablename__="users"
+    id:Mapped[str]=mapped_column(primary_key=True,nullable=False)
+    username:Mapped[str]=mapped_column(nullable=False,unique=True)
+    email:Mapped[str]=mapped_column(nullable=False)
+    password:Mapped[str]=mapped_column(nullable=False)
+
+
+    def __repr__(self) -> str:
+        return f"<User username: {self.username} >"
