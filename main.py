@@ -1,4 +1,6 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+
 from crud import (
     get_all_note, 
     get_by_id, add, 
@@ -19,6 +21,16 @@ app = FastAPI(
     title="Postgresql",
     docs_url="/",
     description="Psql project to use database async",
+)
+
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 session = async_sessionmaker(bind=engine, expire_on_commit=False)
@@ -73,3 +85,6 @@ async def create(user:UserModel):
     user = await create_user(session,new_user)
     return user 
 
+if __name__== "__main__":
+    import uvicorn
+    uvicorn.run(app,host="127.0.0.1",port=8000)
